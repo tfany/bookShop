@@ -1,8 +1,8 @@
 <template> 
   <el-card class="form-container" shadow="never">
     <el-steps :active="active" finish-status="success" align-center>
-      <el-step title="填写书籍信息"></el-step>
-      <el-step title="选择书籍封面"></el-step>
+      <el-step title="填写图书信息"></el-step>
+      <el-step title="选择图书封面"></el-step>
     </el-steps>
     <product-info-detail
       v-show="showStatus[0]"
@@ -21,75 +21,27 @@
 </template>
 <script>
   import ProductInfoDetail from './ProductInfoDetail';
-  import ProductSaleDetail from './ProductSaleDetail';
-  import ProductAttrDetail from './ProductAttrDetail';
   import ProductRelationDetail from './ProductRelationDetail';
   import {createProduct,getProduct,updateProduct} from '@/api/product';
 
   const defaultProductParam = {
-    albumPics: '',
-    brandId: null,
-    brandName: '',
-    deleteStatus: 0,
-    description: '',
-    detailDesc: '',
-    detailHtml: '',
-    detailMobileHtml: '',
-    detailTitle: '',
-    feightTemplateId: 0,
-    flashPromotionCount: 0,
-    flashPromotionId: 0,
-    flashPromotionPrice: 0,
-    flashPromotionSort: 0,
-    giftPoint: 0,
-    giftGrowth: 0,
-    keywords: '',
-    lowStock: 0,
-    name: '',
-    newStatus: 0,
-    note: '',
-    originalPrice: 0,
-    pic: '',
-    //会员价格{memberLevelId: 0,memberPrice: 0,memberLevelName: null}
-    memberPriceList: [],
-    //书籍满减
-    productFullReductionList: [{fullPrice: 0, reducePrice: 0}],
-    //书籍阶梯价格
-    productLadderList: [{count: 0,discount: 0,price: 0}],
-    previewStatus: 0,
-    price: 0,
-    productAttributeCategoryId: null,
-    //书籍属性相关{productAttributeId: 0, value: ''}
-    productAttributeValueList: [],
-    //书籍sku库存信息{lowStock: 0, pic: '', price: 0, sale: 0, skuCode: '', sp1: '', sp2: '', sp3: '', stock: 0}
-    skuStockList: [],
-    //书籍相关专题{subjectId: 0}
-    subjectProductRelationList: [],
-    //书籍相关优选{prefrenceAreaId: 0}
-    prefrenceAreaProductRelationList: [],
-    productCategoryId: null,
-    productCategoryName: '',
-    productSn: '',
-    promotionEndTime: '',
-    promotionPerLimit: 0,
-    promotionPrice: null,
-    promotionStartTime: '',
-    promotionType: 0,
-    publishStatus: 0,
-    recommandStatus: 0,
-    sale: 0,
-    serviceIds: '',
-    sort: 0,
-    stock: 0,
-    subTitle: '',
-    unit: '',
-    usePointLimit: 0,
-    verifyStatus: 0,
-    weight: 0
+    author: '',
+    bookId: '',
+    bookName: '',
+    img: '',
+    price: '',
+    public_time: '',
+    rent: '',
+    stock: '',
+    categoryId: '',
+    parentId: '',
+    categoryName: '',
+    supplierId: '',
+    supplierName: '',
   };
   export default {
     name: 'ProductDetail',
-    components: {ProductInfoDetail, ProductSaleDetail, ProductAttrDetail, ProductRelationDetail},
+    components: {ProductInfoDetail, ProductRelationDetail},
     props: {
       isEdit: {
         type: Boolean,
@@ -100,7 +52,7 @@
       return {
         active: 0,
         productParam: Object.assign({}, defaultProductParam),
-        showStatus: [true, false,]
+        showStatus: [true, false,],
       }
     },
     created(){

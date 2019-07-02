@@ -55,7 +55,7 @@ const user = {
           commit('SET_AVATAR', data.icon)
           resolve(response)
         }).catch(error => {
-          reject('报错了'+error)
+          reject(error)
         })
       })
     },

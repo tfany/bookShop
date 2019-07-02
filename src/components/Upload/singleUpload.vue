@@ -19,7 +19,6 @@
   </div>
 </template>
 <script>
-  import {policy} from '@/api/oss'
 
   export default {
     name: 'singleUpload',

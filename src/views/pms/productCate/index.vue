@@ -25,33 +25,7 @@
           <template slot-scope="scope">{{scope.row.level | levelFilter}}</template>
         </el-table-column>
         <el-table-column label="商品数量" width="100" align="center">
-          <template slot-scope="scope">{{scope.row.productCount }}</template>
-        </el-table-column>
-        <el-table-column label="数量单位" width="100" align="center">
-          <template slot-scope="scope">{{scope.row.productUnit }}</template>
-        </el-table-column>
-        <el-table-column label="导航栏" width="100" align="center">
-          <template slot-scope="scope">
-            <el-switch
-              @change="handleNavStatusChange(scope.$index, scope.row)"
-              :active-value="1"
-              :inactive-value="0"
-              v-model="scope.row.navStatus">
-            </el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column label="是否显示" width="100" align="center">
-          <template slot-scope="scope">
-            <el-switch
-              @change="handleShowStatusChange(scope.$index, scope.row)"
-              :active-value="1"
-              :inactive-value="0"
-              v-model="scope.row.showStatus">
-            </el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column label="排序" width="100" align="center">
-          <template slot-scope="scope">{{scope.row.sort }}</template>
+          <template slot-scope="scope">{{scope.row.bookCount }}</template>
         </el-table-column>
         <el-table-column label="设置" width="200" align="center">
           <template slot-scope="scope">
@@ -59,10 +33,6 @@
               size="mini"
               :disabled="scope.row.level | disableNextLevel"
               @click="handleShowNextLevel(scope.$index, scope.row)">查看下级
-            </el-button>
-            <el-button
-              size="mini"
-              @click="handleTransferProduct(scope.$index, scope.row)">转移商品
             </el-button>
           </template>
         </el-table-column>
@@ -105,6 +75,7 @@
       return {
         list: null,
         total: null,
+        bookCount: '',
         listLoading: true,
         listQuery: {
           pageNum: 1,
@@ -151,39 +122,9 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleNavStatusChange(index, row) {
-        let data = new URLSearchParams();
-        let ids=[];
-        ids.push(row.id)
-        data.append('ids',ids);
-        data.append('navStatus',row.navStatus);
-        updateNavStatus(data).then(response=>{
-          this.$message({
-            message: '修改成功',
-            type: 'success',
-            duration: 1000
-          });
-        });
-      },
-      handleShowStatusChange(index, row) {
-        let data = new URLSearchParams();
-        let ids=[];
-        ids.push(row.id)
-        data.append('ids',ids);
-        data.append('showStatus',row.showStatus);
-        updateShowStatus(data).then(response=>{
-          this.$message({
-            message: '修改成功',
-            type: 'success',
-            duration: 1000
-          });
-        });
-      },
       handleShowNextLevel(index, row) {
+        this.listQuery.pageNum=1;
         this.$router.push({path: '/pms/productCate', query: {parentId: row.id}})
-      },
-      handleTransferProduct(index, row) {
-        console.log('handleAddProductCate');
       },
       handleUpdate(index, row) {
         this.$router.push({path:'/pms/updateProductCate',query:{id:row.id}});
