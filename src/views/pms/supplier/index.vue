@@ -15,7 +15,7 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="品牌名称/关键字"></el-input>
+              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="供应商名称/关键字"></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -38,55 +38,20 @@
                 v-loading="listLoading"
                 border>
         <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="编号" width="100" align="center">
-          <template slot-scope="scope">{{scope.row.id}}</template>
+        <el-table-column label="编号" align="center">
+          <template slot-scope="scope">{{scope.row.supplierId}}</template>
         </el-table-column>
-        <el-table-column label="品牌名称" align="center">
-          <template slot-scope="scope">{{scope.row.name}}</template>
+        <el-table-column label="供应商名称" align="center">
+          <template slot-scope="scope">{{scope.row.supplierName}}</template>
         </el-table-column>
-        <el-table-column label="品牌首字母" width="100" align="center">
-          <template slot-scope="scope">{{scope.row.firstLetter}}</template>
+        <el-table-column label="供应商联系方式"  align="center">
+          <template slot-scope="scope">{{scope.row.phoneNum}}</template>
         </el-table-column>
-        <el-table-column label="排序" width="100" align="center">
-          <template slot-scope="scope">{{scope.row.sort}}</template>
+        <el-table-column label="书籍数量"  align="center">
+          <template slot-scope="scope">{{scope.row.count}}</template>
         </el-table-column>
-        <el-table-column label="品牌制造商" width="100" align="center">
-          <template slot-scope="scope">
-            <el-switch
-              @change="handleFactoryStatusChange(scope.$index, scope.row)"
-              :active-value="1"
-              :inactive-value="0"
-              v-model="scope.row.factoryStatus">
-            </el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column label="是否显示" width="100" align="center">
-          <template slot-scope="scope">
-            <el-switch
-              @change="handleShowStatusChange(scope.$index, scope.row)"
-              :active-value="1"
-              :inactive-value="0"
-              v-model="scope.row.showStatus">
-            </el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column label="相关" width="220" align="center">
-          <template slot-scope="scope">
-            <span>商品：</span>
-            <el-button
-              size="mini"
-              type="text"
-              @click="getProductList(scope.$index, scope.row)">100
-            </el-button>
-            <span>评价：</span>
-            <el-button
-              size="mini"
-              type="text"
-              @click="getProductCommentList(scope.$index, scope.row)">1000
-            </el-button>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="200" align="center">
+
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -144,19 +109,15 @@
       return {
         operates: [
           {
-            label: "显示品牌",
-            value: "showBrand"
-          },
-          {
-            label: "隐藏品牌",
-            value: "hideBrand"
+            label: "批量删除",
+            value: "delete"
           }
         ],
         operateType: null,
         listQuery: {
           keyword: null,
           pageNum: 1,
-          pageSize: 10
+          pageSize: 5
         },
         list: null,
         total: null,
@@ -182,67 +143,21 @@
         this.multipleSelection = val;
       },
       handleUpdate(index, row) {
-        this.$router.push({path: '/pms/updateBrand', query: {id: row.id}})
+        this.$router.push({path: '/pms/updateSupplier', query: {id: row.supplierId}})
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该品牌', '提示', {
+        this.$confirm('此操作会删除该供应商及该供应商所有书籍,此操作不可逆!', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          deleteBrand(row.id).then(response => {
-            this.$message({
-              message: '删除成功',
-              type: 'success',
-              duration: 1000
-            });
+          deleteBrand(row.supplierId).then(response => {
+            this.$alert("删除成功");
             this.getList();
           });
         });
       },
-      getProductList(index, row) {
-        console.log(index, row);
-      },
-      getProductCommentList(index, row) {
-        console.log(index, row);
-      },
-      handleFactoryStatusChange(index, row) {
-        var data = new URLSearchParams();
-        data.append("ids", row.id);
-        data.append("factoryStatus", row.factoryStatus);
-        updateFactoryStatus(data).then(response => {
-          this.$message({
-            message: '修改成功',
-            type: 'success',
-            duration: 1000
-          });
-        }).catch(error => {
-          if (row.factoryStatus === 0) {
-            row.factoryStatus = 1;
-          } else {
-            row.factoryStatus = 0;
-          }
-        });
-      },
-      handleShowStatusChange(index, row) {
-        let data = new URLSearchParams();
-        ;
-        data.append("ids", row.id);
-        data.append("showStatus", row.showStatus);
-        updateShowStatus(data).then(response => {
-          this.$message({
-            message: '修改成功',
-            type: 'success',
-            duration: 1000
-          });
-        }).catch(error => {
-          if (row.showStatus === 0) {
-            row.showStatus = 1;
-          } else {
-            row.showStatus = 0;
-          }
-        });
-      },
+
       handleSizeChange(val) {
         this.listQuery.pageNum = 1;
         this.listQuery.pageSize = val;

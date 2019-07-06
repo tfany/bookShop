@@ -21,22 +21,15 @@
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
           <el-form-item label="输入搜索：">
-            <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="书籍名称"></el-input>
+            <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="会员名称"></el-input>
           </el-form-item>
-          <el-form-item label="书籍编号：">
-            <el-input style="width: 203px" v-model="listQuery.productSn" placeholder="书籍编号"></el-input>
+          <el-form-item label="会员编号：">
+            <el-input style="width: 203px" v-model="listQuery.productSn" placeholder="会员编号"></el-input>
           </el-form-item>
-          <el-form-item label="书籍分类：">
-            <el-cascader
-              clearable
-              v-model="selectProductCateValue"
-              :options="productCateOptions">
-            </el-cascader>
-          </el-form-item>
-          <el-form-item label="供应商：">
-            <el-select v-model="listQuery.brandId" placeholder="请选择供应商" clearable>
+          <el-form-item label="会员等级：">
+            <el-select v-model="listQuery.rank" placeholder="请选择会员等级" clearable>
               <el-option
-                v-for="item in supplierOptions"
+                v-for="item in rankOptions"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
@@ -48,13 +41,7 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
-      <el-button
-        class="btn-add"
-        @click="handleAddProduct()"
-        size="mini">
-        添加
-      </el-button>
+      <span>会员列表</span>
     </el-card>
     <div class="table-container">
       <el-table ref="productTable"
@@ -64,48 +51,46 @@
                 v-loading="listLoading"
                 border>
         <el-table-column type="selection" width="80" align="center"></el-table-column>
-        <el-table-column label="ISBN"  align="center">
-          <template slot-scope="scope">{{scope.row.bookId}}</template>
+        <el-table-column label="用户ID"  align="center">
+          <template slot-scope="scope">{{scope.row.userId}}</template>
         </el-table-column>
-        <el-table-column label="书籍图片"  align="center">
-          <template slot-scope="scope"><img style="height: 80px" :src="scope.row.img"></template>
+        <el-table-column label="会员头像"  align="center">
+          <template slot-scope="scope"><img style="height: 80px" :src="scope.row.headImg"></template>
         </el-table-column>
 
 
-        <el-table-column label="书籍名称" align="center">
+        <el-table-column label="会员姓名" align="center">
           <template slot-scope="scope">
-            <p>{{scope.row.bookName}}</p>
+            <p>{{scope.row.name}}</p>
           </template>
         </el-table-column>
-        <el-table-column label="作者" >
+        <el-table-column label="性别"  align="center">
           <template slot-scope="scope">
-            <p>{{scope.row.author}}</p>
+            <p>{{scope.row.gender}}</p>
           </template>
         </el-table-column>
-        <el-table-column label="分类">
+        <el-table-column label="会员等级" align="center">
           <template slot-scope="scope">
-            <p>{{getParentNameById(scope.row.bookCategory.parentId)}} / {{scope.row.bookCategory.categoryName}}</p>
+            <p>{{scope.row.rank.level}}</p>
           </template>
         </el-table-column>
-        <el-table-column label="供应商" >
+        <el-table-column label="手机号码" align="center">
           <template slot-scope="scope">
-            <p>{{scope.row.supplier.supplierName}}</p>
-          </template>
-        </el-table-column>
-        <el-table-column label="价格" align="center">
-          <template slot-scope="scope">
-            <p>价格：￥{{scope.row.price}}</p>
+            <p>{{scope.row.phoneNum}}</p>
           </template>
         </el-table-column>
 
 
-        <el-table-column label="库存"  align="center">
-          <template slot-scope="scope">{{scope.row.stock}}</template>
+        <el-table-column label="注册时间"  align="center">
+          <template slot-scope="scope">{{scope.row.createTime}}</template>
         </el-table-column>
-        <el-table-column label="销量"  align="center">
-          <template slot-scope="scope">{{scope.row.sale}}</template>
+        <el-table-column label="上次登录时间"  align="center">
+          <template slot-scope="scope">{{scope.row.updateTime}}</template>
         </el-table-column>
-        <el-table-column label="操作"  width="300" align="center">
+        <el-table-column label="状态"  align="center">
+          <template slot-scope="scope">{{scope.row.status}}</template>
+        </el-table-column>
+        <el-table-column label="操作"  width="150" align="center">
           <template slot-scope="scope">
             <p>
               <el-button
@@ -125,7 +110,7 @@
     <div class="batch-operate-container">
       <el-select
         size="small"
-        v-model="operateType" placeholder="批量操作">
+        v-model="operateType" placeholder="批量操作" value="">
         <el-option
           v-for="item in operates"
           :key="item.value"
@@ -167,9 +152,8 @@
   import {
     fetchList,
     updateDeleteStatus,
-  } from '@/api/product'
-  import {fetchList as fetchBrandList} from '@/api/brand'
-  import {fetchListWithChildren} from '@/api/productCate'
+  } from '@/api/user'
+  import {fetchList as fetchRankList} from '@/api/rank'
 
   const defaultListQuery = {
     keyword: null,
@@ -196,38 +180,15 @@
         list: null,
         total: null,
         listLoading: true,
-        selectProductCateValue: null,
         multipleSelection: [],
-        productCateOptions: [],
-        supplierOptions: [],
+        rankOptions: [],
       }
     },
     created() {
       this.getList();
-      this.getBrandList();
-      this.getProductCateList();
+      this.getRankList();
     },
-    watch: {
-      selectProductCateValue: function (newValue) {
-        if (newValue != null && newValue.length == 2) {
-          this.listQuery.productCategoryId = newValue[1];
-        } else {
-          this.listQuery.productCategoryId = null;
-        }
-
-      }
-    },
-
     methods: {
-      getProductSkuSp(row, index) {
-        if (index === 0) {
-          return row.sp1;
-        } else if (index === 1) {
-          return row.sp2;
-        } else {
-          return row.sp3;
-        }
-      },
       getList() {
         this.listLoading = true;
         fetchList(this.listQuery).then(response => {
@@ -236,41 +197,15 @@
           this.total = response.data.total;
         });
       },
-      getBrandList() {
-        fetchBrandList({pageNum: 1, pageSize: 100}).then(response => {
-          this.supplierOptions = [];
-          let supplierList = response.data.list;
-          for (let i = 0; i < supplierList.length; i++) {
-            this.supplierOptions.push({label: supplierList[i].supplierName, value: supplierList[i].supplierId});
+      getRankList() {
+        fetchRankList({pageNum: 1, pageSize: 100}).then(response => {
+          this.rankOptions = [];
+          let rankList = response.data.list;
+          for (let i = 0; i < rankList.length; i++) {
+            this.rankOptions.push({label: rankList[i].name, value: rankList[i].level});
           }
         });
       },
-      getProductCateList() {
-        fetchListWithChildren().then(response => {
-          let list = response.data;
-          this.productCateOptions = [];
-          for (let i = 0; i < list.length; i++) {
-            let children = [];
-            if (list[i].children != null && list[i].children.length > 0) {
-              for (let j = 0; j < list[i].children.length; j++) {
-                children.push({label: list[i].children[j].categoryName, value: list[i].children[j].categoryId});
-              }
-            }
-            this.productCateOptions.push({label: list[i].categoryName, value: list[i].categoryId, children: children});
-          }
-        });
-      },
-      getParentNameById(id){
-        let name=null;
-        for(let i=0;i<this.productCateOptions.length;i++){
-            if(this.productCateOptions[i].value===id){
-              name=this.productCateOptions[i].label;
-            }
-
-        }
-        return name;
-      },
-
       handleSearchList() {
         this.listQuery.pageNum = 1;
         this.getList();
@@ -289,7 +224,7 @@
         }
         if (this.multipleSelection == null || this.multipleSelection.length < 1) {
           this.$message({
-            message: '请选择要操作的书籍',
+            message: '请选择要操作的会员',
             type: 'warning',
             duration: 1000
           });
@@ -319,7 +254,6 @@
       },
 
       handleResetSearch() {
-        this.selectProductCateValue = [];
         this.listQuery = Object.assign({}, defaultListQuery);
       },
       handleDelete(index, row) {
@@ -328,19 +262,17 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let ids = [];
-          ids.push(row.bookId);
-          this.updateDeleteStatus(1, ids);
+          let id = row.userId;
+          this.updateDeleteStatus(id);
         });
       },
       handleUpdateProduct(index, row) {
-        this.$router.push({path: '/pms/updateProduct', query: {id: row.bookId}});
+        this.$router.push({path: '/ums/updateUser', query: {id: row.userId}});
       },
 
-      updateDeleteStatus(deleteStatus, ids) {
+      updateDeleteStatus(id) {
         let params = new URLSearchParams();
-        params.append('ids', ids);
-        params.append('deleteStatus', deleteStatus);
+        params.append('id', id);
         updateDeleteStatus(params).then(response => {
           this.$message({
             message: '删除成功',

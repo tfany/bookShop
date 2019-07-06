@@ -135,7 +135,7 @@
       getBrandList() {
         fetchBrandList({pageNum: 1, pageSize: 100}).then(response => {
           this.brandOptions = [];
-          let supplier = response.data;
+          let supplier = response.data.list;
           for (let i = 0; i < supplier.length; i++) {
             this.brandOptions.push({label: supplier[i].supplierName, value: supplier[i].supplierId});
           }

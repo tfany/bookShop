@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import {fetchList,deleteProductCate,updateShowStatus,updateNavStatus} from '@/api/productCate'
+  import {fetchList,deleteProductCate} from '@/api/productCate'
 
   export default {
     name: "productCateList",
@@ -130,7 +130,7 @@
         this.$router.push({path:'/pms/updateProductCate',query:{id:row.id}});
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该品牌', '提示', {
+        this.$confirm('此操作会删除该分类及所有子分类,同时删除所有产品,此操作不可逆!', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
