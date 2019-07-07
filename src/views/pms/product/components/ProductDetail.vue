@@ -90,17 +90,17 @@
         }).then(() => {
           if(isEdit){
             updateProduct(this.$route.query.id,this.productParam).then(response=>{
-              this.$alert("提交成功",{
+              this.$alert("编辑成功",{
                 type: 'success'
               });
-              this.$router.back();
+              this.$router.push("/pms/product");
             });
           }else{
             createProduct(this.productParam).then(response=>{
               this.$alert("提交成功",{
                 type: 'success'
               });
-              location.reload();
+              this.$router.push("/pms/product");
             });
           }
         })

@@ -54,12 +54,12 @@
         <el-table-column label="用户ID"  align="center">
           <template slot-scope="scope">{{scope.row.userId}}</template>
         </el-table-column>
-        <el-table-column label="会员头像"  align="center">
+        <el-table-column label="头像"  align="center">
           <template slot-scope="scope"><img style="height: 80px" :src="scope.row.headImg"></template>
         </el-table-column>
 
 
-        <el-table-column label="会员姓名" align="center">
+        <el-table-column label="姓名" align="center">
           <template slot-scope="scope">
             <p>{{scope.row.name}}</p>
           </template>
@@ -69,9 +69,9 @@
             <p>{{scope.row.gender}}</p>
           </template>
         </el-table-column>
-        <el-table-column label="会员等级" align="center">
+        <el-table-column label="等级" align="center">
           <template slot-scope="scope">
-            <p>{{scope.row.rank.level}}</p>
+            <p>{{scope.row.rank.name}}</p>
           </template>
         </el-table-column>
         <el-table-column label="手机号码" align="center">

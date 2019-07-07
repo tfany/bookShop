@@ -33,3 +33,9 @@ export function validPhone(str) {
   return reg.test(str)
 }
 
+// 折扣率验证
+export function validDiscount(str) {
+  const reg = /^([01])\.\d{1,2}$/;
+  return reg.test(str)
+}
+

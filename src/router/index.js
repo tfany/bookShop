@@ -146,7 +146,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/ums/user',
     name: 'ums',
-    meta: {title: '会员', icon: 'product'},
+    meta: {title: '会员', icon: 'user'},
     children: [{
       path: 'user',
       name: 'user',
@@ -179,6 +179,26 @@ export const constantRouterMap = [
         component: () => import('@/views/ums/rank/update'),
         meta: {title: '修改等级'},
         hidden: true
+      },
+    ]
+  },
+  {
+    path: '/info',
+    component: Layout,
+    redirect: '/info/manager',
+    name: 'info',
+    meta: {title: '信息', icon: 'user'},
+    children: [{
+      path: 'index',
+      name: 'index',
+      component: () => import('@/views/info/manager/update'),
+      meta: {title: '基本信息', icon: 'product-list'}
+    },
+      {
+        path: 'head',
+        name: 'head',
+        component: () => import('@/views/info/manager/headImg'),
+        meta: {title: '头像', icon: 'product-list'}
       },
     ]
   },

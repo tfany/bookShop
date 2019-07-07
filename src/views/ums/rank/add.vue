@@ -1,11 +1,11 @@
 <template> 
-  <brand-detail :is-edit='false'></brand-detail>
+  <rank-detail :is-edit='false'></rank-detail>
 </template>
 <script>
-  import BrandDetail from './components/BrandDetail'
+  import RankDetail from './components/RankDetail'
   export default {
-    name: 'addBrand',
-    components: { BrandDetail }
+    name: 'addRank',
+    components: { RankDetail }
   }
 </script>
 <style>

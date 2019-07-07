@@ -49,11 +49,29 @@ export function updatePublishStatus(params) {
   })
 }
 
+export function update(data) {
+  return request({
+    url: '/manager/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateImg(data) {
+  return request({
+    url: '/manager/updateImg',
+    method: 'post',
+    data
+  })
+}
+
 export function createProduct(data) {
   return request({
     url: '/user/create',
     method: 'post',
-    data: data
+    params: {
+      data
+    }
   })
 }
 

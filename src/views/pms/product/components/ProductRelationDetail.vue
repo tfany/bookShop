@@ -88,7 +88,6 @@
       },
       handleFinishCommit(){
         this.$emit('finishCommit',this.isEdit);
-        this.url=''
       }
     }
   }

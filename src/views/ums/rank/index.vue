@@ -1,25 +1,5 @@
 <template> 
   <div class="app-container">
-    <el-card class="filter-container" shadow="never">
-        <div>
-          <i class="el-icon-search"></i>
-          <span>筛选搜索</span>
-          <el-button
-            style="float: right"
-            @click="searchBrandList()"
-            type="primary"
-            size="small">
-            查询结果
-          </el-button>
-        </div>
-        <div style="margin-top: 15px">
-          <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-            <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="出版社名称/关键字"></el-input>
-            </el-form-item>
-          </el-form>
-        </div>
-    </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>数据列表</span>
@@ -37,20 +17,15 @@
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading"
                 border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
         <el-table-column label="编号" align="center">
-          <template slot-scope="scope">{{scope.row.supplierId}}</template>
+          <template slot-scope="scope">{{scope.row.level}}</template>
         </el-table-column>
-        <el-table-column label="出版社名称" align="center">
-          <template slot-scope="scope">{{scope.row.supplierName}}</template>
+        <el-table-column label="名称" align="center">
+          <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="出版社联系方式"  align="center">
-          <template slot-scope="scope">{{scope.row.phoneNum}}</template>
+        <el-table-column label="折扣率"  align="center">
+          <template slot-scope="scope">{{scope.row.discount}}</template>
         </el-table-column>
-        <el-table-column label="书籍数量"  align="center">
-          <template slot-scope="scope">{{scope.row.count}}</template>
-        </el-table-column>
-
         <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button
@@ -65,26 +40,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
-    <div class="batch-operate-container">
-      <el-select
-        size="small"
-        v-model="operateType" placeholder="批量操作">
-        <el-option
-          v-for="item in operates"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button
-        style="margin-left: 20px"
-        class="search-button"
-        @click="handleBatchOperate()"
-        type="primary"
-        size="small">
-        确定
-      </el-button>
     </div>
     <div class="pagination-container">
       <el-pagination
@@ -101,23 +56,16 @@
   </div>
 </template>
 <script>
-  import {fetchList, updateShowStatus, updateFactoryStatus, deleteBrand} from '@/api/brand'
+  import {fetchList, updateShowStatus, deleteBrand} from '@/api/rank'
 
   export default {
-    name: 'brandList',
+    name: 'rankList',
     data() {
       return {
-        operates: [
-          {
-            label: "批量删除",
-            value: "delete"
-          }
-        ],
-        operateType: null,
         listQuery: {
           keyword: null,
           pageNum: 1,
-          pageSize: 5
+          pageSize: 10
         },
         list: null,
         total: null,
@@ -143,16 +91,18 @@
         this.multipleSelection = val;
       },
       handleUpdate(index, row) {
-        this.$router.push({path: '/pms/updateBrand', query: {id: row.supplierId}})
+        this.$router.push({path: '/ums/updateRank', query: {id: row.level}})
       },
       handleDelete(index, row) {
-        this.$confirm('此操作会删除该出版社及该出版社所有书籍,此操作不可逆!', '提示', {
+        this.$confirm('此操作会删除该等级及该等级下的所有会员,此操作不可逆!', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          deleteBrand(row.supplierId).then(response => {
-            this.$alert("删除成功");
+          deleteBrand(row.level).then(response => {
+            this.$alert("删除成功",{
+              type: 'success'
+            });
             this.getList();
           });
         });
@@ -211,7 +161,7 @@
         });
       },
       addBrand() {
-        this.$router.push({path: '/pms/addBrand'})
+        this.$router.push({path: '/ums/addRank'})
       }
     }
   }
