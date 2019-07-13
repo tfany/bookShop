@@ -72,3 +72,17 @@ export function getProduct(id) {
   })
 }
 
+export function getBookNoParent(id) {
+  return request({
+    url: '/book/getNoParent/' + id,
+    method: 'get',
+  })
+}
+
+export function getBookByParent(id) {
+  return request({
+    url: '/book/getByParent/' + id,
+    method: 'get',
+  })
+}
+

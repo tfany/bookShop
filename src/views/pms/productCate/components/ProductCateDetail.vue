@@ -79,8 +79,8 @@
       url: {
         get: function () {
           if(this.isEdit)
-            return 'http://localhost:8080/library/category/upload/' +this.$route.query.id;
-          return 'http://localhost:8080/library/category/upload/-1'
+            return 'http://localhost:8080/category/upload/' +this.$route.query.id;
+          return 'http://localhost:8080/category/upload/-1'
         },
         set: function () {
 

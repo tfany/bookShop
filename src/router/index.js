@@ -8,6 +8,12 @@ import Layout from '../views/layout/Layout'
 
 export const constantRouterMap = [
   {path: '/login', component: () => import('@/views/login/index'), hidden: true},
+  {path: '/customer', component: () => import('@/views/customer/common/index'), hidden: true},
+  {path: '/customer/detailPage', component: () => import('@/views/customer/index/detailPage'), hidden: true},
+  {path: '/customer/login', component: () => import('@/views/customer/index/login'), hidden: true},
+  {path: '/customer/register', component: () => import('@/views/customer/index/register'), hidden: true},
+  {path: '/customer/updateUser', component: () => import('@/views/customer/index/info/UserDetail'), hidden: true},
+  {path: '/customer/history', component: () => import('@/views/customer/index/history'), hidden: true},
   {path: '/404', component: () => import('@/views/404'), hidden: true},
   {
     path: '',
@@ -98,47 +104,8 @@ export const constantRouterMap = [
         path: 'order',
         name: 'order',
         component: () => import('@/views/oms/order/index'),
-        meta: {title: '订单列表', icon: 'product-list'}
+        meta: {title: '租借列表', icon: 'product-list'}
       },
-      {
-        path: 'orderDetail',
-        name: 'orderDetail',
-        component: () => import('@/views/oms/order/orderDetail'),
-        meta: {title: '订单详情'},
-        hidden: true
-      },
-      {
-        path: 'deliverOrderList',
-        name: 'deliverOrderList',
-        component: () => import('@/views/oms/order/deliverOrderList'),
-        meta: {title: '发货列表'},
-        hidden: true
-      },
-      {
-        path: 'orderSetting',
-        name: 'orderSetting',
-        component: () => import('@/views/oms/order/setting'),
-        meta: {title: '订单设置', icon: 'order-setting'}
-      },
-      {
-        path: 'returnApply',
-        name: 'returnApply',
-        component: () => import('@/views/oms/apply/index'),
-        meta: {title: '退货申请处理', icon: 'order-return'}
-      },
-      {
-        path: 'returnReason',
-        name: 'returnReason',
-        component: () => import('@/views/oms/apply/reason'),
-        meta: {title: '退货原因设置', icon: 'order-return-reason'}
-      },
-      {
-        path: 'returnApplyDetail',
-        name: 'returnApplyDetail',
-        component: () => import('@/views/oms/apply/applyDetail'),
-        meta: {title: '退货原因详情'},
-        hidden: true
-      }
     ]
   },
   {

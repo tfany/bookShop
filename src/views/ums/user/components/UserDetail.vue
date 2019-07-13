@@ -22,7 +22,7 @@
 <script>
   import UserInfoDetail from './UserInfoDetail';
   import UserRelationDetail from './UserRelationDetail';
-  import {createProduct,getProduct,updateProduct} from '@/api/user';
+  import {createProduct,getInfo,updateProduct} from '@/api/user';
 
   const defaultProductParam = {
     userId: '',
@@ -55,7 +55,7 @@
     },
     created(){
       if(this.isEdit){
-        getProduct(this.$route.query.id).then(response=>{
+        getInfo(this.$route.query.id).then(response=>{
           this.productParam=response.data;
         });
       }

@@ -82,10 +82,10 @@
 
 
         <el-table-column label="注册时间"  align="center">
-          <template slot-scope="scope">{{scope.row.createTime}}</template>
+          <template slot-scope="scope">{{scope.row.createTime | formatCreateTime}}</template>
         </el-table-column>
         <el-table-column label="上次登录时间"  align="center">
-          <template slot-scope="scope">{{scope.row.updateTime}}</template>
+          <template slot-scope="scope">{{scope.row.updateTime | formatCreateTime}}</template>
         </el-table-column>
         <el-table-column label="状态"  align="center">
           <template slot-scope="scope">{{scope.row.status}}</template>
@@ -152,8 +152,9 @@
   import {
     fetchList,
     updateDeleteStatus,
-  } from '@/api/user'
-  import {fetchList as fetchRankList} from '@/api/rank'
+  } from '@/api/user';
+  import {fetchList as fetchRankList} from '@/api/rank';
+  import {formatDate} from '@/utils/date';
 
   const defaultListQuery = {
     keyword: null,
@@ -187,6 +188,12 @@
     created() {
       this.getList();
       this.getRankList();
+    },
+    filters: {
+      formatCreateTime(time) {
+        let date = new Date(time);
+        return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
+      }
     },
     methods: {
       getList() {

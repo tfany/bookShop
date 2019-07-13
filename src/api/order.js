@@ -6,6 +6,13 @@ export function fetchList(params) {
     params:params
   })
 }
+export function add(params) {
+  return request({
+    url:'/order/add',
+    method:'post',
+    data:params
+  })
+}
 
 export function closeOrder(params) {
   return request({
@@ -57,6 +64,22 @@ export function updateMoneyInfo(data) {
 export function updateOrderNote(params) {
   return request({
     url:'/order/update/note',
+    method:'post',
+    params:params
+  })
+}
+
+export function getByUser(params) {
+  return request({
+    url:'/order/get',
+    method:'get',
+    params:params
+  })
+}
+
+export function huan(params) {
+  return request({
+    url:'/order/huan',
     method:'post',
     params:params
   })

@@ -35,9 +35,6 @@
       <el-form-item label="书籍售价：" prop="price">
         <el-input v-model="value.price"></el-input>
       </el-form-item>
-      <el-form-item label="市场价：">
-        <el-input v-model="value.price"></el-input>
-      </el-form-item>
       <el-form-item label="书籍库存：" prop="stock">
         <el-input v-model="value.stock"></el-input>
       </el-form-item>

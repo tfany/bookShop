@@ -63,8 +63,7 @@
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading"
                 border>
-        <el-table-column type="selection" width="80" align="center"></el-table-column>
-        <el-table-column label="ISBN"  align="center">
+        <el-table-column label="书籍编号"  align="center">
           <template slot-scope="scope">{{scope.row.bookId}}</template>
         </el-table-column>
         <el-table-column label="书籍图片"  align="center">
@@ -122,26 +121,26 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="batch-operate-container">
-      <el-select
-        size="small"
-        v-model="operateType" placeholder="批量操作">
-        <el-option
-          v-for="item in operates"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button
-        style="margin-left: 20px"
-        class="search-button"
-        @click="handleBatchOperate()"
-        type="primary"
-        size="small">
-        确定
-      </el-button>
-    </div>
+<!--    <div class="batch-operate-container">-->
+<!--      <el-select-->
+<!--        size="small"-->
+<!--        v-model="operateType" placeholder="批量操作">-->
+<!--        <el-option-->
+<!--          v-for="item in operates"-->
+<!--          :key="item.value"-->
+<!--          :label="item.label"-->
+<!--          :value="item.value">-->
+<!--        </el-option>-->
+<!--      </el-select>-->
+<!--      <el-button-->
+<!--        style="margin-left: 20px"-->
+<!--        class="search-button"-->
+<!--        @click="handleBatchOperate()"-->
+<!--        type="primary"-->
+<!--        size="small">-->
+<!--        确定-->
+<!--      </el-button>-->
+<!--    </div>-->
     <div class="pagination-container">
       <el-pagination
         background
@@ -185,12 +184,12 @@
     name: "productList",
     data() {
       return {
-        operates: [
-          {
-            label: "批量删除",
-            value: "delete"
-          }
-        ],
+        // operates: [
+        //   {
+        //     label: "批量删除",
+        //     value: "delete"
+        //   }
+        // ],
         operateType: null,
         listQuery: Object.assign({}, defaultListQuery),
         list: null,
@@ -273,6 +272,7 @@
 
       handleSearchList() {
         this.listQuery.pageNum = 1;
+
         this.getList();
       },
       handleAddProduct() {

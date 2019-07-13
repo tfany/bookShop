@@ -83,10 +83,37 @@ export function updateProduct(id,data) {
   })
 }
 
-export function getProduct(id) {
+export function getInfo(id) {
   return request({
     url: '/user/updateInfo/' + id,
     method: 'get',
   })
 }
+export function getUserInfo() {
+  return request({
+    url: '/user/userinfo',
+    method: 'get',
+  })
+}
 
+export function login(userId, password) {
+  return request({
+    url: '/user/verifylogin',
+    method: 'post',
+    data: {
+      userId,
+      password
+    }
+  })
+}
+
+export function registerUser(phoneNum, password) {
+  return request({
+    url: '/user/verifyRegister',
+    method: 'post',
+    data: {
+      phoneNum,
+      password
+    }
+  })
+}
