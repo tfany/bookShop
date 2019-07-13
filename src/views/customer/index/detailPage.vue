@@ -38,6 +38,7 @@
   import {add} from '@/api/order'
   import {getUserInfo as getInfo} from '@/api/user'
 
+
   export default {
     name: "detailPage",
     data() {
@@ -45,7 +46,7 @@
         value: {},
         day: 1,
         count: 1,
-        user: null
+        user: null,
       }
     },
     created() {

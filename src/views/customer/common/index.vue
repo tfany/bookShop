@@ -18,7 +18,7 @@
       </div>
       <div class="nav wrap">
         <div class="nav-logo">
-          <router-link :to="{path: 'customer'}"><img src="" alt=""></router-link>
+          <router-link :to="{path: 'customer'}"><img :src="logo" alt=""></router-link>
         </div>
         <div class="header-nav">
           <ul class="nav-list">
@@ -155,7 +155,7 @@
   import {fetchListWithChildren} from '@/api/productCate'
   import {getUserInfo as userInfo} from '@/api/user'
   import {fetchList, getBookNoParent, getBookByParent, fetchSimpleList} from '@/api/product'
-
+  import logo from '@/assets/images/logo.jpg';
 
   export default {
     name: "headerIndex",
@@ -166,7 +166,8 @@
         user: {},
         input: '',
         activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex2: '1',
+        logo
       }
     },
     created() {
