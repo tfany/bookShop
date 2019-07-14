@@ -331,6 +331,7 @@
           let ids = [];
           ids.push(row.bookId);
           this.updateDeleteStatus(1, ids);
+          this.getList()
         });
       },
       handleUpdateProduct(index, row) {

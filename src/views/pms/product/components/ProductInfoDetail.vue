@@ -29,7 +29,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="ISBN：" prop="bookId">
+      <el-form-item label="编号：" prop="bookId">
         <el-input v-model="value.bookId"></el-input>
       </el-form-item>
       <el-form-item label="书籍售价：" prop="price">

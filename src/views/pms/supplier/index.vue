@@ -5,7 +5,7 @@
       <span>数据列表</span>
       <el-button
         class="btn-add"
-        @click="addBrand()"
+        @click="addSupplier()"
         size="mini">
         添加
       </el-button>
@@ -163,8 +163,8 @@
           });
         });
       },
-      addBrand() {
-        this.$router.push({path: '/pms/addBrand'})
+      addSupplier() {
+        this.$router.push({path: '/pms/addSupplier'})
       }
     }
   }

@@ -26,6 +26,7 @@
 
   const defaultProductParam = {
     author: '',
+    oldId: '',
     bookId: '',
     bookName: '',
     img: '',
@@ -83,7 +84,7 @@
         }
       },
       finishCommit(isEdit) {
-        this.$confirm('是否要提交该产品', '提示', {
+        this.$confirm('是否要提交该书籍', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

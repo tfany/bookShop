@@ -31,7 +31,7 @@
 </template>
 <script>
   import {getInfo} from '@/api/login'
-  import {updateImg} from '@/api/user'
+  import {update} from '@/api/user'
 
   export default {
     name: "ProductRelationDetail",
@@ -98,7 +98,7 @@
         }).then(() => {
           let manager = {};
           manager.headImg=this.value.img
-          updateImg(manager).then(response => {
+          update(manager).then(response => {
             this.$alert("修改成功", {
               type: 'success'
             });

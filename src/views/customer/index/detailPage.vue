@@ -16,7 +16,7 @@
         </p>
         <p class="rent">
           租借数量:
-          <el-input-number v-model="count" :min="1" :max="value.stock" label="描述文字"></el-input-number>
+          <el-input-number v-model="count" :min="0" :max="value.stock" label="描述文字"></el-input-number>
         </p>
         <p class="rent">
           应付金额:
@@ -45,7 +45,7 @@
       return {
         value: {},
         day: 1,
-        count: 1,
+        count: 0,
         user: null,
       }
     },
@@ -111,6 +111,8 @@
                 message: "租借成功"
               })
             });
+            this.count=0;
+            this.day=1;
             this.getBook();
             this.getBook();
             this.getBook();
