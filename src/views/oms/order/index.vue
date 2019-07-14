@@ -120,6 +120,9 @@
     },
     filters: {
       formatCreateTime(time) {
+        if(time==null){
+          return '尚未归还'
+        }
         let date = new Date(time);
         return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
       },

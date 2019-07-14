@@ -61,7 +61,7 @@
         <div class="home-category">
           <ul>
             <li class="nav-hover" v-for="o in options">
-              <a @click="showNoParent(o.value)">{{o.label}} <i class="iconfont">&#xe602;</i>
+              <a @click="showNoParent(o.value)">{{o.label}} <i class="iconfont"> > </i>
               </a>
               <div class="category-children">
                 <ul class="children-list">

@@ -35,7 +35,7 @@ export function validPhone(str) {
 
 // 折扣率验证
 export function validDiscount(str) {
-  const reg = /^([01])\.\d{1,2}$/;
+  const reg = /(^([01])\.\d{1,2}$)|1/;
   return reg.test(str)
 }
 

@@ -16,7 +16,7 @@
         </p>
         <p class="rent">
           租借数量:
-          <el-input-number v-model="count" :min="0" :max="value.stock" label="描述文字"></el-input-number>
+          <el-input-number v-model="count" :min="1" :max="value.stock" label="描述文字"></el-input-number>
         </p>
         <p class="rent">
           应付金额:
@@ -89,10 +89,25 @@
         if(this.user.status===0){
           this.$message({
             type: "error",
-            message: "您以违规,没有权限借书,请联系管理员解封"
+            message: "您已违规,没有权限借书,请联系管理员解封"
           })
           return;
         }
+        if(this.value.stock<=0){
+          this.$message({
+            type: "error",
+            message: "库存不足"
+          })
+          return;
+        }
+        if(this.count===0){
+          this.$message({
+            type: "error",
+            message: "0本咋租????"
+          })
+          return;
+        }
+
         this.$confirm('确认支付' + this.sum + '元,租借' + this.count + '本' + this.value.bookName + this.day + '天吗?', '提示', {
           confirmButtonText: '支付',
           cancelButtonText: '取消',

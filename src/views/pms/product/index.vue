@@ -101,9 +101,6 @@
         <el-table-column label="库存"  align="center">
           <template slot-scope="scope">{{scope.row.stock}}</template>
         </el-table-column>
-        <el-table-column label="销量"  align="center">
-          <template slot-scope="scope">{{scope.row.sale}}</template>
-        </el-table-column>
         <el-table-column label="操作"  width="300" align="center">
           <template slot-scope="scope">
             <p>
