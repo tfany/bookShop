@@ -48,7 +48,7 @@
     computed:{
       url: {
         get: function () {
-          return 'http://localhost:8080/book/upload/' + this.value.bookId;
+          return 'http://101.201.239.223:8090/book/upload/' + this.value.bookId;
         },
         set: function () {
 

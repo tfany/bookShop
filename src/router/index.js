@@ -9,6 +9,7 @@ import Layout from '../views/layout/Layout'
 export const constantRouterMap = [
   {path: '/login', component: () => import('@/views/login/index'), hidden: true},
   {path: '/customer', component: () => import('@/views/customer/common/index'), hidden: true},
+  {path: '/', component: () => import('@/views/customer/common/index'), hidden: true},
   {path: '/customer/detailPage', component: () => import('@/views/customer/index/detailPage'), hidden: true},
   {path: '/customer/login', component: () => import('@/views/customer/index/login'), hidden: true},
   {path: '/customer/register', component: () => import('@/views/customer/index/register'), hidden: true},

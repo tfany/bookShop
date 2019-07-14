@@ -47,7 +47,7 @@
     computed: {
       url: {
         get: function () {
-          return 'http://localhost:8080/library/manager/upload/'+this.value.id;
+          return 'http://101.201.239.223:8090/manager/upload/'+this.value.id;
         },
         set: function () {
 

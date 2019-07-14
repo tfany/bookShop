@@ -48,7 +48,7 @@
     computed:{
       url: {
         get: function () {
-          return 'http://localhost:8080/user/upload/' + this.value.userId;
+          return 'http://101.201.239.223:8090/user/upload/' + this.value.userId;
         },
         set: function () {
 

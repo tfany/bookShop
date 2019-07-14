@@ -1,44 +1,5 @@
 <template> 
   <div class="app-container">
-    <el-card class="filter-container" shadow="never">
-      <div>
-        <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
-        <el-button
-          style="float: right"
-          @click="handleSearchList()"
-          type="primary"
-          size="small">
-          查询结果
-        </el-button>
-        <el-button
-          style="float: right;margin-right: 15px"
-          @click="handleResetSearch()"
-          size="small">
-          重置
-        </el-button>
-      </div>
-      <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="输入搜索：">
-            <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="会员名称"></el-input>
-          </el-form-item>
-          <el-form-item label="会员编号：">
-            <el-input style="width: 203px" v-model="listQuery.productSn" placeholder="会员编号"></el-input>
-          </el-form-item>
-          <el-form-item label="会员等级：">
-            <el-select v-model="listQuery.rank" placeholder="请选择会员等级" clearable>
-              <el-option
-                v-for="item in rankOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-      </div>
-    </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>会员列表</span>
@@ -50,7 +11,6 @@
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading"
                 border>
-        <el-table-column type="selection" width="80" align="center"></el-table-column>
         <el-table-column label="用户ID"  align="center">
           <template slot-scope="scope">{{scope.row.userId}}</template>
         </el-table-column>
@@ -106,26 +66,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
-    <div class="batch-operate-container">
-      <el-select
-        size="small"
-        v-model="operateType" placeholder="批量操作" value="">
-        <el-option
-          v-for="item in operates"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button
-        style="margin-left: 20px"
-        class="search-button"
-        @click="handleBatchOperate()"
-        type="primary"
-        size="small">
-        确定
-      </el-button>
     </div>
     <div class="pagination-container">
       <el-pagination

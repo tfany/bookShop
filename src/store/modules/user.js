@@ -70,7 +70,7 @@ const user = {
           commit('SET_AVATAR', data.icon)
           resolve(response)
         }).catch(error => {
-          reject(error)
+          reject()
         })
       })
     },

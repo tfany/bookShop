@@ -24,7 +24,7 @@
         <el-table-column label="级别" width="100" align="center">
           <template slot-scope="scope">{{scope.row.level | levelFilter}}</template>
         </el-table-column>
-        <el-table-column label="商品数量" width="100" align="center">
+        <el-table-column label="书籍数量" width="100" align="center">
           <template slot-scope="scope">{{scope.row.bookCount }}</template>
         </el-table-column>
         <el-table-column label="设置" width="200" align="center">
