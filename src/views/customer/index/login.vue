@@ -10,7 +10,7 @@
           <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
         </div>
         <h2 class="login-title color-main">糖糖书屋</h2>
-        <el-form-item prop="username">
+        <el-form-item prop="userId">
           <el-input name="username"
                     type="text"
                     v-model="loginForm.userId"

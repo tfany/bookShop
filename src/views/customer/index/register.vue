@@ -10,7 +10,7 @@
           <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
         </div>
         <h2 class="login-title color-main">糖糖书屋注册</h2>
-        <el-form-item prop="username">
+        <el-form-item prop="userId">
           <el-input name="username"
                     type="text"
                     v-model="loginForm.userId"
@@ -53,15 +53,14 @@
   import {validPhone} from '@/utils/validate';
   import login_center_bg from '@/assets/images/login_center_bg.png'
   import { registerUser } from '@/api/user'
-  import {setToken} from '@/utils/auth'
 
 
   export default {
     name: 'login',
     data() {
-      const validateUsername = (rule, value, callback) => {
+      const validatePhoneNum = (rule, value, callback) => {
         if (!validPhone(value)) {
-          callback(new Error('请输入正确的手机号'))
+          callback(new Error('请输入正确的手机号码'))
         } else {
           callback()
         }
@@ -79,7 +78,7 @@
           password: '',
         },
         loginRules: {
-          userId: [{required: true, trigger: 'blur', validator: validateUsername}],
+          userId: [{required: true, validator: validatePhoneNum, message: '请输入正确的手机号码'},],
           password: [{required: true, trigger: 'blur', validator: validatePass}]
         },
         loading: false,

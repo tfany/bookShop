@@ -1,5 +1,5 @@
 export function isvalidUsername(str) {
-  const valid_map =/\d{5,11}/
+  const valid_map =/(^[1-9]\d{4,10}$)/
   return valid_map.test(str)
 }
 
